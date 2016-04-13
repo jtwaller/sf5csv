@@ -1,0 +1,138 @@
+Fchampryan
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-37989728-10', 'auto');
+  ga('send', 'pageview');
+Character Matchups
+Leaderboard
+Lookup player by their fighter ID
+About
+UPDATES
+04/05/2016
+Currently ONLY pulling data for the top 500 players.
+Leaderboard and Global are now updating regularly.
+Fchampryan
+Last updated: 2016-04-07
+Pulling from 480 matches
+Last seen: 2016-04-06
+STATS
+Games Played
+480
+Overall Win Rate
+92%
+League Rank
+Ultra Platinum
+League Points
+12316
+Region
+USA
+Platform
+STEAM
+CHARACTER MATCHUPS
+Character
+Opponent
+Win Rate
+Games Played
+Dhalsim
+- overall -
+92%
+478
+Dhalsim
+Ryu
+88%
+61
+Dhalsim
+Nash
+92%
+40
+Dhalsim
+Ken
+91%
+36
+Dhalsim
+Necalli
+97%
+35
+Dhalsim
+Karin
+94%
+34
+Dhalsim
+Dhalsim
+100%
+34
+Dhalsim
+Cammy
+93%
+30
+Dhalsim
+Chun Li
+96%
+28
+Dhalsim
+Claw
+75%
+28
+Dhalsim
+Dictator
+95%
+24
+Dhalsim
+R. Mika
+90%
+21
+Dhalsim
+Rashid
+90%
+21
+Dhalsim
+Laura
+90%
+21
+Dhalsim
+Alex
+90%
+21
+Dhalsim
+Birdie
+94%
+18
+Dhalsim
+Zangief
+94%
+17
+Dhalsim
+Fang
+100%
+9
+Character
+Opponent
+Win Rate
+Games Played
+Nash
+- overall -
+100%
+2
+Nash
+Ryu
+100%
+2
+Copyright 2016 M. Paul Weeks
+Street Fighter is a registered trademark of Capcom Co., Ltd.
+$(document).ready(function() {
+  $('.matchup-table').each(function (){
+    $(this).DataTable({
+      "paging": false,
+      "ordering": true,
+      "info": false,
+      "bFilter": false,
+      "columnDefs": [
+        { "orderable": false, "targets": 0 }
+      ],
+      "order": [[3, 'desc']],
+    });
+  });
+});

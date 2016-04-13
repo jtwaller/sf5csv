@@ -1,0 +1,126 @@
+TS-Sabin
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-37989728-10', 'auto');
+  ga('send', 'pageview');
+Character Matchups
+Leaderboard
+Lookup player by their fighter ID
+About
+UPDATES
+04/05/2016
+Currently ONLY pulling data for the top 500 players.
+Leaderboard and Global are now updating regularly.
+TS-Sabin
+Last updated: 2016-04-07
+Pulling from 625 matches
+Last seen: 2016-04-06
+STATS
+Games Played
+625
+Overall Win Rate
+94%
+League Rank
+Ultra Platinum
+League Points
+12578
+Region
+USA
+Platform
+PSN
+CHARACTER MATCHUPS
+Character
+Opponent
+Win Rate
+Games Played
+Dhalsim
+- overall -
+94%
+625
+Dhalsim
+Nash
+92%
+65
+Dhalsim
+Dictator
+90%
+62
+Dhalsim
+Karin
+96%
+59
+Dhalsim
+Necalli
+96%
+58
+Dhalsim
+Birdie
+96%
+50
+Dhalsim
+Ryu
+100%
+44
+Dhalsim
+Ken
+97%
+42
+Dhalsim
+Cammy
+94%
+35
+Dhalsim
+Chun Li
+91%
+34
+Dhalsim
+Dhalsim
+97%
+34
+Dhalsim
+Claw
+96%
+28
+Dhalsim
+Laura
+96%
+26
+Dhalsim
+Fang
+92%
+25
+Dhalsim
+Rashid
+95%
+24
+Dhalsim
+R. Mika
+95%
+21
+Dhalsim
+Zangief
+87%
+16
+Dhalsim
+Alex
+100%
+2
+Copyright 2016 M. Paul Weeks
+Street Fighter is a registered trademark of Capcom Co., Ltd.
+$(document).ready(function() {
+  $('.matchup-table').each(function (){
+    $(this).DataTable({
+      "paging": false,
+      "ordering": true,
+      "info": false,
+      "bFilter": false,
+      "columnDefs": [
+        { "orderable": false, "targets": 0 }
+      ],
+      "order": [[3, 'desc']],
+    });
+  });
+});
