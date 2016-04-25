@@ -1,0 +1,30 @@
+to do:
+
+data shaping:
+change region (if count < 10 -> OTHER)
+convert percents to wins/losses
+
+tables
+summary table: regions, platforms, characters, etc
+
+charts
+characters
+regions
+LP histograms (bin size?) (x bin, y count)
+games played histograms (bin size?)
+
+x bins of games played vs y avg lp
+
+winrates of projectile chars vs cast
+winrates of grapplers
+
+
+to reorder bar charts:
+reorder_size <- function(x) {
+	factor(x, levels = names(sort(table(x))))
+}
+aes(reorder_size(class))
+
+
+misc:
+global package installation -> sudo su - -c "R -e \"install.packages('PACKAGE')\""

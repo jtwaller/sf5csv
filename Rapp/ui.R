@@ -9,14 +9,10 @@ shinyUI(fluidPage(
         the ranked ladder from sfv.fightinggame.community"),
     
       selectInput("var", 
-        label = "Choose a variable to display",
-        choices = c("Percent White", "Percent Black",
-          "Percent Hispanic", "Percent Asian"),
-        selected = "Percent White"),
-    
-      sliderInput("range", 
-        label = "Range of interest:",
-        min = 0, max = 100, value = c(0, 100))
+        label = "Choose which chart to display",
+        choices = c("Character Counts", "Platform Counts",
+          "Region Counts"),
+        selected = "Character Counts"),
     ),
   
     mainPanel(plotOutput("plot"))
