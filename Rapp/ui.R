@@ -12,7 +12,7 @@ shinyUI(fluidPage(
         label = "Choose which chart to display",
         choices = c("Character Counts", "Platform Counts",
           "Region Counts"),
-        selected = "Character Counts"),
+        selected = "Character Counts")
     ),
   
     mainPanel(plotOutput("plot"))
