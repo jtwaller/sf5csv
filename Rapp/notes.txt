@@ -1,15 +1,18 @@
 to do:
 
 data shaping:
-change region (if count < 10 -> OTHER)
-convert percents to wins/losses
+# change region (if count < 10 -> OTHER)
+# convert percents to wins/losses
+
+playrate by region
 
 tables
-summary table: regions, platforms, characters, etc
+#summary table: regions, platforms, characters, etc
+
 
 charts
 characters
-regions
+regions 
 LP histograms (bin size?) (x bin, y count)
 games played histograms (bin size?)
 
@@ -17,6 +20,24 @@ x bins of games played vs y avg lp
 
 winrates of projectile chars vs cast
 winrates of grapplers
+
+
+Dhals wins vs:
+
+
+Characters:
+  "Alex", "Birdie", "Cammy", "Chun", "Claw", "Dhalsim", "Dictator", "Fang", 
+  "Karin", "Ken", "Laura", "Nash", "Necalli", "RMika", "Rashid", "Ryu", "Zangief"
+
+  Fireballers:
+  Birdie? Chun Dhalsim Fang Ken Laura Nash Necalli? Rashid Ryu
+
+  Grapplers
+  Alex Birdie Laura? RMika Zangief
+
+  Cmd Grab
+  Alex Birdie Claw Laura Necalli RMika Zangief
+
 
 
 to reorder bar charts:
