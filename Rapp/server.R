@@ -1,9 +1,13 @@
 # server.R
 
+# Ye who enter here: this is my first R programming experience
+# so don't expect anything here to be coded well.
+
 library(ggplot2)
 library(dplyr)
 csv <- read.csv("../csvbuilder/output.csv") %>%
   filter(LP > 7000)
+raw <- csv
 
 # Data mangling
 
@@ -52,21 +56,30 @@ for (i in 1:length(characters)) {
   charsums$Character[i] <- characters[i] #set character names
   tempdf <- filter(csv, Character == characters[i]) #temp frame for each char
   for (j in 8:length(csv)) {
-  	charsums[i,j-6] <- sum(tempdf[j]) # sum the columns and assign 1 by 1
+  	charsums[i,j-6] <- sum(tempdf[j]) # sum the columns 1 by 1 and assign
   }
 }
 
+#ggplot(csv, aes(x = Character, fill = Platform)) + geom_bar(position = "dodge")
+
 shinyServer(function(input, output) {
-  output$summary <- renderPrint({
-    summary(csv[2:6])
+
+  output$summary <- renderPlot({
+    ggplot(csv, aes(x = Character)) + geom_bar()
+
+
   })
 
-  output$plot <- renderPlot({
-    args <- switch(input$var,
-      "Character Counts" = csv$Character,
-      "Platform Counts" = csv$Platform,
-      "Region Counts" = csv$Region)
+  output$text <- renderPrint({
+    summary(raw[2:6], maxsum = 20)
+  })
 
-    ggplot(csv) + geom_bar(mapping = aes(reorder_size(args)))
-	})
+#  output$plot <- renderPlot({
+#    args <- switch(input$matchplot,
+#      "Character Counts" = csv$Character,
+#      "Platform Counts" = csv$Platform,
+#      "Region Counts" = csv$Region)
+#    ggplot(csv) + geom_bar(mapping = aes(args)) + xlab(input$matchplot)
+#	})
+
 })

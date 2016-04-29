@@ -1,5 +1,30 @@
 to do:
 
+goal UI:
+Summary Plots
+  Character Played Rates
+    Overall
+    PSN vs Steam
+    JPN vs USA
+    JPN vs Overall
+    USA vs Overall
+  Avg LP based on character choice
+
+Matchup Plots
+  Character vs. Totals
+    Need one for each char!
+  Character vs. Winrate%
+    By region?
+  Archetypes vs Cast?
+
+Efficiency
+  Top 10 players LP / Games
+  Avg games played based on main Character
+
+Text Reports
+  What could be done better
+    probably more interesting would be comparing data of high LP matches only instead of comparing the top ranked players records against the whole population.
+
 data shaping:
 # change region (if count < 10 -> OTHER)
 # convert percents to wins/losses
@@ -8,7 +33,6 @@ playrate by region
 
 tables
 #summary table: regions, platforms, characters, etc
-
 
 charts
 characters
@@ -30,7 +54,7 @@ Characters:
   "Karin", "Ken", "Laura", "Nash", "Necalli", "RMika", "Rashid", "Ryu", "Zangief"
 
   Fireballers:
-  Birdie? Chun Dhalsim Fang Ken Laura Nash Necalli? Rashid Ryu
+  Chun Dhalsim Fang Ken Nash Necalli? Rashid Ryu
 
   Grapplers
   Alex Birdie Laura? RMika Zangief
