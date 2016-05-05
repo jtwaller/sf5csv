@@ -16,13 +16,13 @@ shinyUI(fluidPage(
       conditionalPanel("input.choose == 'Summary Plots'",
         selectInput("summarychoice", label = NULL,
           choices = c("Character Played Rates",
-          "Average LP per Character"), selected = "One"), 
+          "Average LP per Character") ), 
 
         # Radio Buttons Panel
         conditionalPanel("input.summarychoice == 'Character Played Rates'",
-          radioButtons("charplayedrates", label = NULL,
+          radioButtons("regionrates", label = NULL,
             choices = c("Overall", "PSN vs. Steam", "JPN vs USA",
-          	"JPN vs Overall", "USA vs Overall"))
+          	"JPN vs Other", "USA vs Other") )
         )
       ),
 
@@ -56,12 +56,20 @@ shinyUI(fluidPage(
     ),
 
     mainPanel(
-      conditionalPanel("input.choose == 'Summary Plots'",
-        plotOutput("summary") ),
+      conditionalPanel("input.choose == 'Summary Plots' & 
+      	input.summarychoice == 'Character Played Rates'",
+        plotOutput("summary1") ),
+
+      conditionalPanel("input.choose == 'Summary Plots' & 
+      	input.summarychoice == 'Average LP per Character'",
+        plotOutput("summary2") ),
+      
       conditionalPanel("input.choose == 'Matchup Plots'",
         plotOutput("matchup") ),
+      
       conditionalPanel("input.choose == 'Efficiency'",
         plotOutput("efficiency") ),
+      
       conditionalPanel("input.choose == 'Text Reports'",
         verbatimTextOutput("text") )
     )

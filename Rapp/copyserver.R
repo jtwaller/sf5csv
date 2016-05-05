@@ -1,15 +1,13 @@
 # server.R
 
-# To whom it may concern: this is my first R experience.
-# Please do not judge me too harshly.  Hope you like spaghetti.
+# Ye who enter here: this is my first R programming experience
+# so don't expect anything here to be coded well.
 
 library(ggplot2)
 library(dplyr)
 csv <- read.csv("../csvbuilder/output.csv") %>%
   filter(LP > 7000)
 raw <- csv
-
-source("summaryplots.R")
 
 # Data mangling
 
@@ -66,26 +64,10 @@ for (i in 1:length(characters)) {
 
 shinyServer(function(input, output) {
 
-  output$summary1 <- renderPlot({
-    args <- switch(input$regionrates,
-      "Overall" = ggplot(Overall, aes(x = Character, y = Frequency,
-      	  fill = Character)) + geom_bar(stat = "identity") + guides(fill = FALSE),
-      "PSN vs. Steam" = ggplot(PSN, aes(x = Character, y = Frequency,
-      	  fill = Platform)) + geom_bar(position = "dodge", stat = "identity"),
-      "JPN vs USA" = ggplot(JPUS, aes(x = Character, y = Frequency,
-      	  fill = Region)) + geom_bar(position = "dodge", stat = "identity"),
-      "JPN vs Other" = ggplot(notJPN, aes(x = Character, y = Frequency,
-      	  fill = Region)) + geom_bar(position = "dodge", stat = "identity"),
-      "USA vs Other" = ggplot(notUSA, aes(x = Character, y = Frequency,
-      	  fill = Region)) + geom_bar(position = "dodge", stat = "identity")
-    )
+  output$summary <- renderPlot({
+    ggplot(csv, aes(x = Character)) + geom_bar()
 
-    args
 
-  })	
-
-  output$summary2 <- renderPlot({
-    ggplot(csv, aes(x = Character, y = LP)) + geom_point()    
   })
 
   output$text <- renderPrint({
