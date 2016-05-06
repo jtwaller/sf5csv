@@ -9,7 +9,7 @@ csv <- read.csv("../csvbuilder/output.csv") %>%
   filter(LP > 7000)
 raw <- csv
 
-source("summaryplots.R")
+source("summaryplots.R", local = TRUE)
 
 # Data mangling
 
@@ -85,7 +85,10 @@ shinyServer(function(input, output) {
   })	
 
   output$summary2 <- renderPlot({
-    ggplot(csv, aes(x = Character, y = LP)) + geom_point()    
+    ggplot(csv, aes(x = Character, y = LP, fill = Character)) +
+      stat_summary(fun.y = "mean", geom = "bar") + guides(fill = FALSE) +
+      coord_cartesian(ylim = c(8000, 9500))
+
   })
 
   output$text <- renderPrint({
