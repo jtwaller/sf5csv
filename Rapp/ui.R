@@ -29,16 +29,14 @@ shinyUI(fluidPage(
     # Matchup Plots
       conditionalPanel("input.choose == 'Matchup Plots'",
         selectInput("matchplot", label = NULL,
-          choices = c("Matchup Winrates", "Matchup Totals",
-          "Archetype Winrates", "Archetype Totals"), selected = "Matchup Winrates"),
+          choices = c("Matchup Winrates", 
+          "Archetype Winrates"), selected = "Matchup Winrates"),
         conditionalPanel("input.matchplot == 'Matchup Winrates' | input.matchplot == 'Matchup Totals'",
-          selectInput("charchoice", label = NULL, choices = c("Alex", "Birdie",
+          checkboxGroupInput("charchoice", label = h3("Highlight"), choices = c("Alex", "Birdie",
           	"Cammy", "Chun Li", "Claw", "Dhalsim", "Dictator", "Fang", "Karin",
           	"Ken", "Laura", "Nash", "Necalli", "R. Mika", "Rashid", "Ryu", "Zangief"))
         ),
         conditionalPanel("input.matchplot == 'Archetype Winrates' | input.matchplot == 'Archetype Totals'",
-          selectInput("archchoice", label = NULL, choices = c("Command Grabbers",
-          	"Fireballers", "Grapplers")),
           helpText("Command Grabbers: Alex, Birdie, Claw, Laura, Necalli, RMika, Zangief.",  
             tags$br(), tags$br(), "Fireballers: Chun, Dhalsim, Fang, Ken, Nash, Rashid, Ryu.",
             tags$br(), tags$br(), "Grapplers: Alex, Birdie, Laura, RMika, Zangief")
