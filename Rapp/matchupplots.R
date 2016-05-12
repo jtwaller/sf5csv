@@ -1,7 +1,6 @@
 # Replace Win% column with total wins and 
 # replace Game Count with total losses
-characters <- c("Alex", "Birdie", "Cammy", "Chun Li", "Claw", "Dhalsim", "Dictator", "Fang", 
-  "Karin", "Ken", "Laura", "Nash", "Necalli", "R. Mika", "Rashid", "Ryu", "Zangief")
+
 charcount <- 1
 
 columnstart = match("AlexWin", names(csv))
@@ -26,7 +25,7 @@ temp = c("Character", names(csv[8:length(csv)])) # Character, Alexwin... Zangief
 charsums <- data.frame(matrix(ncol = length(temp), nrow = length(characters)))
 colnames(charsums) <- temp
 
-# Again, there must be a much better way here
+# Don't do this.  Find *Abomination Solution* below for a much cleaner way
 for (i in 1:length(characters)) {
   charsums$Character[i] <- characters[i] #set character names
   tempdf <- filter(csv, Character == characters[i]) #temp frame for each char
@@ -40,7 +39,7 @@ colnames(matchdf) <- c("Character", characters)
 for (i in 1:length(characters)) {
   matchdf[i,1] <- characters[i]
   for (j in 1:length(characters)) {
-    # matchdf[character,winrate] <- charsums(character,characterwin/charactertotalgame)
+    # matchdf[character,winrate] <- opponentwin/opponenttotalgame
     matchdf[i,j + 1] <- charsums[i,j*2] / (charsums[i,j*2] + charsums[i,j*2 + 1])
   }
 }
@@ -65,12 +64,6 @@ colnames(matchdf) <- gsub(" ", "", colnames(matchdf))
 # obs2
 # obs2
 
-# ggplot(matchdf, aes(x = playedagainst, y = winrate)) + geom_line()
-
-# this seems a bit ridiculous to me so I must be missing something
-# but I've spent too long trying to plot my original dataframe
-# so I'm just gonna reshape the thing and get it over with.
-
 library(reshape)
 # http://www.ats.ucla.edu/stat/r/faq/reshape.htm
 matchdf <- reshape(matchdf, 
@@ -81,9 +74,39 @@ matchdf <- reshape(matchdf,
   direction = "long",
   new.row.names = 1:1000)
 
-# matchdf[which(temp$Character == "Alex"), ]
+# Archetype plots
 
-# ggplot(temp[which(temp$Character == "Alex"), ], aes(x = Opponent, y = Winrate, group = 1)) + geom_point(stat = "identity")
+archetypes <- c("Command Grabbers", "Fireballers", "Grapplers")
+cmdgrab <- c("Alex", "Birdie", "Claw", "Laura", "Necalli", "R. Mika", "Zangief")
+fireball <- c("Chun Li", "Dhalsim", "Fang", "Ken", "Nash", "Rashid", "Ryu")
+grappler <- c("Alex", "Birdie", "Laura", "R. Mika", "Zangief")
 
-# ggplot(matchdf, aes(x = Opponent, y = Winrate, color = Character, group = 1)) + geom_point(stat = "identity")
+temp <- c("Archetype", names(csv[8:length(csv)])) # Character, Alexwin... ZangiefLoss
+archsums <- data.frame(matrix(ncol = length(temp), nrow = length(archetypes)))
+colnames(archsums) <- temp
 
+# *Abomination solution*
+archsums[1,] <- c(archetypes[1], colSums(charsums[charsums$Character %in% cmdgrab, 2:length(charsums)])) 
+archsums[2,] <- c(archetypes[2], colSums(charsums[charsums$Character %in% fireball, 2:length(charsums)])) 
+archsums[3,] <- c(archetypes[3], colSums(charsums[charsums$Character %in% grappler, 2:length(charsums)])) 
+
+archdf <- data.frame(matrix(ncol = length(characters) + 1, nrow = length(archetypes)))
+colnames(archdf) <- c("Archetype", characters)
+for (i in 1:length(archetypes)) {
+  archdf[i,1] <- archetypes[i]
+  for (j in 1:length(characters)) {
+    # archdf[archetype,winrate] <- opponentwin/opponenttotalgame
+    # don't really know why I need to cast as.numeric here... from colSums?
+    archdf[i,j + 1] <- as.numeric(archsums[i,j*2]) / (as.numeric(archsums[i,j*2]) + as.numeric(archsums[i,j*2 + 1]))
+  }
+}
+
+# Remove spaces from matchdf column names
+colnames(archdf) <- gsub(" ", "", colnames(archdf))
+archdf <- reshape(archdf, 
+  varying = colnames(archdf[2:length(archdf)]),
+  v.names = "Winrate",
+  timevar = "Opponent",
+  times = colnames(archdf[2:length(archdf)]),
+  direction = "long",
+  new.row.names = 1:1000)

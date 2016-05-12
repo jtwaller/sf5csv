@@ -1,6 +1,29 @@
 # ui.R
 
-shinyUI(fluidPage(
+# multi column input for the matchup checkboxes
+# http://stackoverflow.com/questions/29738975/how-to-align-a-group-of-checkboxgroupinput-in-r-shiny
+
+tweaks <- 
+  list(tags$head(tags$style(HTML("
+	.multicol { 
+	  height: 230px;
+	  -webkit-column-count: 2; /* Chrome, Safari, Opera */ 
+	  -moz-column-count: 2;    /* Firefox */ 
+	  column-count: 2; 
+	  -moz-column-fill: auto;
+	  -column-fill: auto;
+	} 
+	")) 
+	))
+
+matchcontrols <-
+  list(tags$div(
+  	align = 'left', 
+    class = 'multicol',
+    checkboxGroupInput("charchoice", label = NULL,
+      choices = characters[1:length(characters)], inline = FALSE)))
+
+shinyUI(fluidPage(tweaks,
   titlePanel("SF5 Leaderboard Data"),
   
   sidebarLayout(
@@ -31,12 +54,11 @@ shinyUI(fluidPage(
         selectInput("matchplot", label = NULL,
           choices = c("Matchup Winrates", 
           "Archetype Winrates"), selected = "Matchup Winrates"),
-        conditionalPanel("input.matchplot == 'Matchup Winrates' | input.matchplot == 'Matchup Totals'",
-          checkboxGroupInput("charchoice", label = h3("Highlight"), choices = c("Alex", "Birdie",
-          	"Cammy", "Chun Li", "Claw", "Dhalsim", "Dictator", "Fang", "Karin",
-          	"Ken", "Laura", "Nash", "Necalli", "R. Mika", "Rashid", "Ryu", "Zangief"))
+        conditionalPanel("input.matchplot == 'Matchup Winrates'",
+          h3("Highlight Character:"),
+          matchcontrols # how the hell do I get these columns to align?
         ),
-        conditionalPanel("input.matchplot == 'Archetype Winrates' | input.matchplot == 'Archetype Totals'",
+        conditionalPanel("input.matchplot == 'Archetype Winrates'",
           helpText("Command Grabbers: Alex, Birdie, Claw, Laura, Necalli, RMika, Zangief.",  
             tags$br(), tags$br(), "Fireballers: Chun, Dhalsim, Fang, Ken, Nash, Rashid, Ryu.",
             tags$br(), tags$br(), "Grapplers: Alex, Birdie, Laura, RMika, Zangief")

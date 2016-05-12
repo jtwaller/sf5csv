@@ -11,6 +11,9 @@ raw <- csv
 
 # Data mangling
 
+characters <- c("Alex", "Birdie", "Cammy", "Chun Li", "Claw", "Dhalsim", "Dictator", "Fang", 
+  "Karin", "Ken", "Laura", "Nash", "Necalli", "R. Mika", "Rashid", "Ryu", "Zangief")
+
 source("summaryplots.R", local = TRUE)
 source("matchupplots.R", local = TRUE)
 
@@ -58,8 +61,28 @@ shinyServer(function(input, output) {
   })
 
   output$matchup <- renderPlot({
-    ggplot(matchdf, aes(x = Opponent, y = Winrate, color = Character, group = 1)) + 
-      geom_point(stat = "identity")
+    charspicked <- input$charchoice
+    
+    if (input$matchplot == "Matchup Winrates") {
+      if (length(charspicked) != 0) { 
+        ggplot(matchdf, aes(x = Opponent, y = Winrate, group = 1)) + 
+        geom_point() + 
+        geom_point(data = matchdf[matchdf$Character %in% charspicked,], 
+        	aes(color = Character, shape = Character, size = 15)) +
+        	guides(size = FALSE)
+      }
+	  else {
+        ggplot(matchdf, aes(x = Opponent, y = Winrate, color = Character, group = 1)) + 
+          geom_point()
+	  }
+	}
+	else {
+	  ggplot(archdf, aes(x = Opponent, y = Winrate, group = 1)) + 
+          geom_point(data = matchdf) +
+          geom_point(aes(color = Archetype, , shape = Archetype, size = 20)) +
+          guides(size = FALSE)
+	}
+
   })
 
   output$text <- renderPrint({

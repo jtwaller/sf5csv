@@ -153,3 +153,28 @@ csv character
 
   1    2   3   4   5
   2/3  4/5 5/6 7/8 9/10  
+
+archetype plots game plan
+charsums 
+char alexwin alexloss birdie..
+row
+row
+
+archsums
+archetype opponent winrate
+row
+row
+row
+
+archwinrates
+reshape(winrates)
+
+archsums
+cmd grab sum(alexwin birdie claw laura nec rmika gief) sumloss
+
+Command Grabbers: Alex, Birdie, Claw, Laura, Necalli, RMika, Zangief.
+Fireballers: Chun, Dhalsim, Fang, Ken, Nash, Rashid, Ryu.
+Grapplers: Alex, Birdie, Laura, RMika, Zangief 
+
+to get the archetypes working
+take totals, sum
