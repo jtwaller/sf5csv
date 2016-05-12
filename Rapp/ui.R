@@ -16,6 +16,10 @@ tweaks <-
 	")) 
 	))
 
+# Temp hack... copying from server.R.  Maybe put in global.R?
+characters <- c("Alex", "Birdie", "Cammy", "Chun Li", "Claw", "Dhalsim", "Dictator", "Fang", 
+  "Karin", "Ken", "Laura", "Nash", "Necalli", "R. Mika", "Rashid", "Ryu", "Zangief")
+
 matchcontrols <-
   list(tags$div(
   	align = 'left', 
