@@ -18,7 +18,7 @@ tweaks <-
 
 # Temp hack... copying from server.R.  Maybe put in global.R?
 characters <- c("Alex", "Birdie", "Cammy", "Chun Li", "Claw", "Dhalsim", "Dictator", "Fang", 
-  "Karin", "Ken", "Laura", "Nash", "Necalli", "R. Mika", "Rashid", "Ryu", "Zangief")
+  "Guile", "Karin", "Ken", "Laura", "Nash", "Necalli", "R. Mika", "Rashid", "Ryu", "Zangief")
 
 matchcontrols <-
   list(tags$div(
@@ -32,9 +32,10 @@ shinyUI(fluidPage(tweaks,
   
   sidebarLayout(
     sidebarPanel(
+      strong("MOBILE USERS!  Please view in landscape mode"),
       helpText("Explore the top 500 players on 
         the ranked ladder from sfv.fightinggame.community"),
-    
+
       selectInput("choose",
       	label = "Choose Your Destiny:",
       	choices = c("Summary Plots", "Matchup Plots", "Efficiency", "Text Reports")),
@@ -60,11 +61,13 @@ shinyUI(fluidPage(tweaks,
           "Archetype Winrates"), selected = "Matchup Winrates"),
         conditionalPanel("input.matchplot == 'Matchup Winrates'",
           h3("Highlight Character:"),
-          matchcontrols # how the hell do I get these columns to align?
+          matchcontrols, # how the hell do I get these columns to align?
+          helpText("The Guile outlier is Infiltration.  He's the only player with Guile as most played."),  
+          helpText("As of May 11, he is 229-0 with Guile")
         ),
         conditionalPanel("input.matchplot == 'Archetype Winrates'",
           helpText("Command Grabbers: Alex, Birdie, Claw, Laura, Necalli, RMika, Zangief.",  
-            tags$br(), tags$br(), "Fireballers: Chun, Dhalsim, Fang, Ken, Nash, Rashid, Ryu.",
+            tags$br(), tags$br(), "Fireballers: Chun, Dhalsim, Fang, Guile, Ken, Nash, Rashid, Ryu.",
             tags$br(), tags$br(), "Grapplers: Alex, Birdie, Laura, RMika, Zangief")
         )
       ),

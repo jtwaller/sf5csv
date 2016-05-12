@@ -12,7 +12,7 @@ raw <- csv
 # Data mangling
 
 characters <- c("Alex", "Birdie", "Cammy", "Chun Li", "Claw", "Dhalsim", "Dictator", "Fang", 
-  "Karin", "Ken", "Laura", "Nash", "Necalli", "R. Mika", "Rashid", "Ryu", "Zangief")
+  "Guile", "Karin", "Ken", "Laura", "Nash", "Necalli", "R. Mika", "Rashid", "Ryu", "Zangief")
 
 source("summaryplots.R", local = TRUE)
 source("matchupplots.R", local = TRUE)
@@ -49,7 +49,7 @@ shinyServer(function(input, output) {
       	  fill = Region)) + geom_bar(position = "dodge", stat = "identity")
     )
 
-    args
+    args + theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 
   })	
 
@@ -57,6 +57,7 @@ shinyServer(function(input, output) {
     ggplot(csv, aes(x = Character, y = LP, fill = Character)) +
       stat_summary(fun.y = "mean", geom = "bar") + guides(fill = FALSE) +
       coord_cartesian(ylim = c(8000, 9500))
+      theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 
   })
 
@@ -69,18 +70,21 @@ shinyServer(function(input, output) {
         geom_point() + 
         geom_point(data = matchdf[matchdf$Character %in% charspicked,], 
         	aes(color = Character, shape = Character, size = 15)) +
-        	guides(size = FALSE)
+        	guides(size = FALSE) +
+        theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
       }
 	  else {
         ggplot(matchdf, aes(x = Opponent, y = Winrate, color = Character, group = 1)) + 
-          geom_point()
+          geom_point() +
+          theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 	  }
 	}
 	else {
 	  ggplot(archdf, aes(x = Opponent, y = Winrate, group = 1)) + 
           geom_point(data = matchdf) +
           geom_point(aes(color = Archetype, , shape = Archetype, size = 20)) +
-          guides(size = FALSE)
+          guides(size = FALSE) +
+          theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 	}
 
   })

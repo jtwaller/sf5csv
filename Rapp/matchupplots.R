@@ -78,7 +78,7 @@ matchdf <- reshape(matchdf,
 
 archetypes <- c("Command Grabbers", "Fireballers", "Grapplers")
 cmdgrab <- c("Alex", "Birdie", "Claw", "Laura", "Necalli", "R. Mika", "Zangief")
-fireball <- c("Chun Li", "Dhalsim", "Fang", "Ken", "Nash", "Rashid", "Ryu")
+fireball <- c("Chun Li", "Dhalsim", "Fang", "Guile", "Ken", "Nash", "Rashid", "Ryu")
 grappler <- c("Alex", "Birdie", "Laura", "R. Mika", "Zangief")
 
 temp <- c("Archetype", names(csv[8:length(csv)])) # Character, Alexwin... ZangiefLoss
