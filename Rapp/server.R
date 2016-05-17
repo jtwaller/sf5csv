@@ -62,7 +62,7 @@ shinyServer(function(input, output) {
     if (input$matchplot == "Matchup Winrates") {
       if (length(charspicked) != 0) { 
         ggplot(matchdf, aes(x = Opponent, y = Winrate, group = 1)) + 
-        geom_point() + 
+        geom_point(alpha = .3) + 
         geom_point(data = matchdf[matchdf$Character %in% charspicked,], 
         	aes(color = Character, shape = Character, size = 15)) +
         	guides(size = FALSE) +
@@ -76,7 +76,7 @@ shinyServer(function(input, output) {
 	}
 	else {
 	  ggplot(archdf, aes(x = Opponent, y = Winrate, group = 1)) + 
-          geom_point(data = matchdf) +
+          geom_point(data = matchdf, alpha = .3) +
           geom_point(aes(color = Archetype, , shape = Archetype, size = 20)) +
           guides(size = FALSE) +
           theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
