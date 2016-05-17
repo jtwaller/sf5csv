@@ -77,7 +77,7 @@ shinyUI(fluidPage(tweaks,
     # Text Reports (no panel needed I think, just fill up main panel)
     
     helpText("As of May 16, only 3 players main Guile, one of which 
-    	is Infiltration.  Expect unusual results."),
+    	is the RZR_Infiltration bot (100% winrate).  Expect unusual results."),
     helpText(
       a("Source Code", href="https://github.com/jtwaller/sf5csv", target="_blank"),
       br(),
