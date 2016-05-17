@@ -6,7 +6,7 @@
 library(ggplot2)
 library(dplyr)
 library(DT)
-csv <- read.csv("../csvbuilder/output.csv") %>%
+csv <- read.csv("output.csv") %>%
   filter(LP > 7000)
 raw <- csv
 

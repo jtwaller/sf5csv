@@ -28,6 +28,8 @@ shinyUI(fluidPage(tweaks,
   sidebarLayout(
     sidebarPanel(
       strong("MOBILE USERS!  Please view in landscape mode"),
+      helpText("Also if anyone knows how to disable the virtual keyboard
+      	on mobile devices please let me know."),
       helpText("Explore the top 500 players on 
         the ranked ladder from sfv.fightinggame.community"),
 
@@ -88,6 +90,7 @@ shinyUI(fluidPage(tweaks,
         plotOutput("summary2") ),
       
       conditionalPanel("input.choose == 'Matchup Plots'",
+        titlePanel("Please use the checkboxes to filter characters."),
         plotOutput("matchup") ),
       
       conditionalPanel("input.choose == 'Efficiency' &
