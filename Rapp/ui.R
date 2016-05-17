@@ -2,7 +2,6 @@
 
 # multi column input for the matchup checkboxes
 # http://stackoverflow.com/questions/29738975/how-to-align-a-group-of-checkboxgroupinput-in-r-shiny
-
 tweaks <- 
   list(tags$head(tags$style(HTML("
 	.multicol { 
@@ -15,10 +14,6 @@ tweaks <-
 	} 
 	")) 
 	))
-
-# Temp hack... copying from server.R.  Maybe put in global.R?
-characters <- c("Alex", "Birdie", "Cammy", "Chun Li", "Claw", "Dhalsim", "Dictator", "Fang", 
-  "Guile", "Karin", "Ken", "Laura", "Nash", "Necalli", "R. Mika", "Rashid", "Ryu", "Zangief")
 
 matchcontrols <-
   list(tags$div(
@@ -61,9 +56,7 @@ shinyUI(fluidPage(tweaks,
           "Archetype Winrates"), selected = "Matchup Winrates"),
         conditionalPanel("input.matchplot == 'Matchup Winrates'",
           h3("Highlight Character:"),
-          matchcontrols, # how the hell do I get these columns to align?
-          helpText("The Guile outlier is Infiltration.  He's the only player with Guile as most played."),  
-          helpText("As of May 11, he is 229-0 with Guile")
+          matchcontrols # how the hell do I get these columns to align?
         ),
         conditionalPanel("input.matchplot == 'Archetype Winrates'",
           helpText("Command Grabbers: Alex, Birdie, Claw, Laura, Necalli, RMika, Zangief.",  
@@ -75,11 +68,14 @@ shinyUI(fluidPage(tweaks,
     # Efficiency
       conditionalPanel("input.choose == 'Efficiency'",
         selectInput("effchoice", label = NULL,
-          choices = c("Most Efficient Players", "Least Efficient Players",
-          "Character Efficiency"), selected = "Most Efficient Players")
-      )
+          choices = c("Player Efficiency", "Character Efficiency"), 
+            selected = "Player Efficiency")
+      ),
 
     # Text Reports (no panel needed I think, just fill up main panel)
+    
+    helpText("As of May 16, only 3 players main Guile, one of which 
+    	is Infiltration.  Expect unusual results.")
     ),
 
     mainPanel(
@@ -94,8 +90,17 @@ shinyUI(fluidPage(tweaks,
       conditionalPanel("input.choose == 'Matchup Plots'",
         plotOutput("matchup") ),
       
-      conditionalPanel("input.choose == 'Efficiency'",
-        plotOutput("efficiency") ),
+      conditionalPanel("input.choose == 'Efficiency' &
+      	input.effchoice == 'Player Efficiency'",
+      	fluidRow( 
+      	  selectInput("charfilter", "Character Filter:", c("All", characters))
+      	),
+      	fluidRow(DT::dataTableOutput("efficiency1") )
+      ),
+
+      conditionalPanel("input.choose == 'Efficiency' &
+      	input.effchoice == 'Character Efficiency'",
+        plotOutput("efficiency2") ),
       
       conditionalPanel("input.choose == 'Text Reports'",
         verbatimTextOutput("text") )

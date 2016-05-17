@@ -3,6 +3,8 @@
 
 charcount <- 1
 
+# Per character wins and losses derived from win% and total games
+
 columnstart = match("AlexWin", names(csv))
 for (i in columnstart:length(csv)) {
   if (i %% 2 == 0) {
@@ -16,7 +18,6 @@ for (i in columnstart:length(csv)) {
   }
 }
 
-# Per character stats
 # There has to be a better way to do this?
 # As is, make a temp vector of col titles, make a no-data frame,
 # Then colname the vector into the column titles
@@ -25,7 +26,8 @@ temp = c("Character", names(csv[8:length(csv)])) # Character, Alexwin... Zangief
 charsums <- data.frame(matrix(ncol = length(temp), nrow = length(characters)))
 colnames(charsums) <- temp
 
-# Don't do this.  Find *Abomination Solution* below for a much cleaner way
+# This doesn't seem right... colSums and filters seems cleaner
+# Refer to *Abomination Solution* below
 for (i in 1:length(characters)) {
   charsums$Character[i] <- characters[i] #set character names
   tempdf <- filter(csv, Character == characters[i]) #temp frame for each char

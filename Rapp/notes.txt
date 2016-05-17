@@ -1,3 +1,5 @@
+Personal notes ahead, please disregard
+
 required packages
 ggplot2
 dplyr
@@ -176,5 +178,3 @@ Command Grabbers: Alex, Birdie, Claw, Laura, Necalli, RMika, Zangief.
 Fireballers: Chun, Dhalsim, Fang, Ken, Nash, Rashid, Ryu.
 Grapplers: Alex, Birdie, Laura, RMika, Zangief 
 
-to get the archetypes working
-take totals, sum

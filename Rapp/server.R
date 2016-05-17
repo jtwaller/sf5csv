@@ -5,17 +5,16 @@
 
 library(ggplot2)
 library(dplyr)
+library(DT)
 csv <- read.csv("../csvbuilder/output.csv") %>%
   filter(LP > 7000)
 raw <- csv
 
 # Data mangling
 
-characters <- c("Alex", "Birdie", "Cammy", "Chun Li", "Claw", "Dhalsim", "Dictator", "Fang", 
-  "Guile", "Karin", "Ken", "Laura", "Nash", "Necalli", "R. Mika", "Rashid", "Ryu", "Zangief")
-
 source("summaryplots.R", local = TRUE)
 source("matchupplots.R", local = TRUE)
+source("efficiencyplots.R", local = TRUE)
 
 # Change region to OTH if total region count is < 5
 #for (i in 1:length(csv$Region)) { 
@@ -23,15 +22,11 @@ source("matchupplots.R", local = TRUE)
 #    csv$Region[i] <- "OTH" }
 #}
 
-
-
 # Reorder by count function for geom_bar since 
 # I guess that's not an option?
 reorder_size <- function(x) {
   factor(x, levels = names(sort(table(x))))
 }
-
-#ggplot(csv, aes(x = Character, fill = Platform)) + geom_bar(position = "dodge")
 
 shinyServer(function(input, output) {
 
@@ -56,7 +51,7 @@ shinyServer(function(input, output) {
   output$summary2 <- renderPlot({
     ggplot(csv, aes(x = Character, y = LP, fill = Character)) +
       stat_summary(fun.y = "mean", geom = "bar") + guides(fill = FALSE) +
-      coord_cartesian(ylim = c(8000, 9500))
+      coord_cartesian(ylim = c(9500, 11000)) +
       theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 
   })
@@ -89,16 +84,24 @@ shinyServer(function(input, output) {
 
   })
 
+  output$efficiency1 <- DT::renderDataTable(DT::datatable({
+    data <- efftable
+    if (input$charfilter != "All") {
+    	data <- data[data$Character == input$charfilter,]
+    }
+    data
+  }))
+
+  output$efficiency2 <- renderPlot({
+    ggplot(chareff, aes(x = Character, y = chareff[,2], fill = Character)) +
+      geom_bar(stat = "identity") + guides(fill = FALSE) +      
+      theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+      ylab("LP/Game")
+  })
+
+
   output$text <- renderPrint({
     summary(raw[2:6], maxsum = 20)
   })
-
-#  output$plot <- renderPlot({
-#    args <- switch(input$matchplot,
-#      "Character Counts" = csv$Character,
-#      "Platform Counts" = csv$Platform,
-#      "Region Counts" = csv$Region)
-#    ggplot(csv) + geom_bar(mapping = aes(args)) + xlab(input$matchplot)
-#	})
 
 })
