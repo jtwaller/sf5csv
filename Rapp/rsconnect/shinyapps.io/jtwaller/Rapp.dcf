@@ -2,6 +2,6 @@ name: Rapp
 account: jtwaller
 server: shinyapps.io
 appId: 102626
-bundleId: 454522
+bundleId: 454616
 url: https://jtwaller.shinyapps.io/Rapp/
-when: 1463509331.24077
+when: 1463514302.56725
