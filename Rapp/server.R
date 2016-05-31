@@ -51,7 +51,7 @@ shinyServer(function(input, output) {
   output$summary2 <- renderPlot({
     ggplot(csv, aes(x = Character, y = LP, fill = Character)) +
       stat_summary(fun.y = "mean", geom = "bar") + guides(fill = FALSE) +
-      coord_cartesian(ylim = c(9500, 11000)) +
+      coord_cartesian(ylim = c(10000, 11250)) +
       theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 
   })
