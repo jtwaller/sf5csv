@@ -1,6 +1,7 @@
 # sf5csv
 
 View the R app live: http://107.170.194.31/shiny/sfv/
+![](screenshot.png)
 
 Web scraper and data visualizer for data from http://sfv.fightinggame.community/.
 
